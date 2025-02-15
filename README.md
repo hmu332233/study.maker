@@ -95,6 +95,19 @@ Make sure to deploy the output of `npm run build`
 
 This template comes with [Tailwind CSS](https://tailwindcss.com/) already configured for a simple default starting experience. You can use whatever CSS framework you prefer.
 
+
 ---
 
-Built with ❤️ using React Router.
+## shacdn/ci
+
+This is not a component library. It is how you build your component library.
+- 기존 UI 라이브러리들(MUI, Chakra UI 등)은 미리 만들어진 컴포넌트를 제공하고, 개발자는 이를 가져다 사용하는 방식입니다
+- 반면 shadcn/ui는 개발자가 직접 컴포넌트를 자신의 프로젝트로 복사해와서 수정하고 커스터마이징하는 것을 권장합니다
+
+shadcn/ui는 "컴포넌트 라이브러리를 만드는 방법"을 제시하는 도구입니다.  미리 만들어진 컴포넌트를 제공하는 것을 넘어, 개발자가 자신의 프로젝트에 최적화된 컴포넌트 라이브러리를 구축할 수 있도록 돕는 것을 목표로 합니다
+
+- install
+  - https://ui.shadcn.com/docs/installation/remix
+
+- components.json
+  - cli 사용시 필요한 정보를 담고 있는 파일
