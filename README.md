@@ -98,6 +98,25 @@ This template comes with [Tailwind CSS](https://tailwindcss.com/) already config
 
 ---
 
+## structure
+
+- features base structure
+  - common (공통)
+    - components
+    - hooks
+    - utils
+  - features (기능/도메인별)
+    - feature1
+      - components
+      - hooks
+      - pages
+      - utils
+    - feature2
+      - components
+      - hooks
+      - pages
+      - utils
+
 ## shacdn/ci
 
 This is not a component library. It is how you build your component library.

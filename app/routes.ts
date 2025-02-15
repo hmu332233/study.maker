@@ -1,4 +1,4 @@
-// routes.ts 이름 고정
+// // react-router routes.ts는 프레임워크 사용 기준 필수 컴포넌트
 // 어떤 페이지가 있는지 정의하는 파일
 import { type RouteConfig, index, route } from "@react-router/dev/routes";
 

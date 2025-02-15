@@ -1,3 +1,4 @@
+// react-router root.tsx는 프레임워크 사용 기준 필수 컴포넌트
 import {
   isRouteErrorResponse,
   Links,
