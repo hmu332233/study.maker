@@ -10,6 +10,7 @@ import {
 import type { Route } from "./+types/root";
 import "./app.css";
 
+// NOTE: 이름 고정
 export const links: Route.LinksFunction = () => [
   { rel: "preconnect", href: "https://fonts.googleapis.com" },
   {
@@ -23,6 +24,7 @@ export const links: Route.LinksFunction = () => [
   },
 ];
 
+// NOTE: 이름 고정
 export function Layout({ children }: { children: React.ReactNode }) {
   return (
     <html lang="en">
@@ -33,6 +35,8 @@ export function Layout({ children }: { children: React.ReactNode }) {
         <Links />
       </head>
       <body>
+        {/* NOTE: 기본적으로 export defualt 랜더링, 에러가 있으면 ErrorBoundary를 랜더링 */}
+        {/* NOTE: 프레임워크 규칙 */}
         {children}
         <ScrollRestoration />
         <Scripts />
@@ -41,10 +45,14 @@ export function Layout({ children }: { children: React.ReactNode }) {
   );
 }
 
+
+// NOTE: export default는 이름이 정해져있지 않아도 됨
 export default function App() {
   return <Outlet />;
 }
 
+
+// NOTE: 이름 고정
 export function ErrorBoundary({ error }: Route.ErrorBoundaryProps) {
   let message = "Oops!";
   let details = "An unexpected error occurred.";
