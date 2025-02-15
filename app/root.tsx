@@ -31,13 +31,17 @@ export function Layout({ children }: { children: React.ReactNode }) {
       <head>
         <meta charSet="utf-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1" />
+        {/* meta에 있는 값이 랜더링되는 컴포넌트 */}
         <Meta />
+        {/* links에 있는 값이 랜더링되는 컴포넌트 */}
         <Links />
       </head>
       <body>
         {/* NOTE: 기본적으로 export defualt 랜더링, 에러가 있으면 ErrorBoundary를 랜더링 */}
         {/* NOTE: 프레임워크 규칙 */}
         {children}
+
+        {/* 스크롤 복구 컴포넌트, 페이지 뒤로 이동했을때 등 */}
         <ScrollRestoration />
         <Scripts />
       </body>
