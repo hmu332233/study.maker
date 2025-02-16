@@ -1,27 +1,35 @@
-import React from 'react';
-import type { Route } from "../../../+types/features/minung";
+import type { Route } from "./+types/routes/minung";
 
-export function loader({}: Route.LoaderArgs) {
+export function loader({ request }: Route.LoaderArgs) {
   return {
-    title: "Minung's Page"
+    message: "Welcome to Minung's page"
   };
 }
 
-export function meta({}: Route.MetaFunction) {
-  return [{ title: "Minung | Study Maker" }];
+export function action({ request }: Route.ActionArgs) {
+  return {};
 }
 
-interface MinungPageProps {
-  // 필요한 props가 있다면 여기에 정의
+// NOTE: links는 미리 로드할 리소스를 정의하는 함수
+// 꼭 root에만 있어야 하는 것은 아님
+export const links: Route.LinksFunction = () => [
+  { rel: "stylesheet", href: "minung.css"}
+];
+
+// NOTE: meta는 페이지의 메타데이터를 정의하는 함수
+// 꼭 root에만 있어야 하는 것은 아님
+export function meta(): Route.MetaFunction {
+  return [
+    { title: "Minung's Page" },
+    { description: "Welcome to Minung's personal page" }
+  ];
 }
 
-export default function MinungPage({}: MinungPageProps) {
+export default function MinungPage({ loaderData }: Route.ComponentProps) {
   return (
-    <div className="min-h-screen p-4">
-      <h1 className="text-2xl font-bold mb-4">민웅의 페이지</h1>
-      <div>
-        <p>이곳은 민웅의 페이지입니다.</p>
-      </div>
+    <div>
+      <h1>Minung's Page</h1>
+      <p>{loaderData.message}</p>
     </div>
   );
 }

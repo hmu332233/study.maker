@@ -1,14 +1,4 @@
-import React from 'react';
-
-interface HomePageProps {
-  // 필요한 props가 있다면 여기에 정의
-}
-
-export function meta() {
-  return [{ title: "홈 | Study Maker" }];
-}
-
-export default function HomePage({}: HomePageProps) {
+export default function HomePage() {
   return (
     <div className="min-h-screen p-4">
       <h1 className="text-3xl font-bold mb-6">Study Maker</h1>
