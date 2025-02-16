@@ -3,6 +3,7 @@
 import { type RouteConfig, index, route } from "@react-router/dev/routes";
 
 // 여기서 정의
-export default [index("routes/home.tsx"),
-  route("/minung", "routes/minung.tsx"),
+export default [
+  index("common/pages/home.tsx"),
+  route("/minung", "features/minung/pages/index.tsx"),
 ] satisfies RouteConfig;
