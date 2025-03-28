@@ -2,6 +2,10 @@ import { Link } from "react-router";
 import { Separator } from "./ui/separator";
 import { NavigationMenu, NavigationMenuContent, NavigationMenuItem, NavigationMenuLink, NavigationMenuList, NavigationMenuTrigger, navigationMenuTriggerStyle } from "./ui/navigation-menu";
 import { cn } from "~/lib/utils";
+import { Button } from "./ui/button";
+import { DropdownMenu, DropdownMenuContent, DropdownMenuGroup, DropdownMenuItem, DropdownMenuLabel, DropdownMenuSeparator, DropdownMenuTrigger } from "./ui/dropdown-menu";
+import { Avatar, AvatarFallback, AvatarImage } from "./ui/avatar";
+import { BarChart3Icon, BellIcon, LogOutIcon, MessageCircleIcon, Settings, UserIcon } from "lucide-react";
 
 const menus = [{
   name: "prodcuts",
@@ -108,7 +112,16 @@ const menus = [{
   ]
 }];
 
-export default function Navigation() {
+type Props = {
+  isLoggedIn: boolean;
+  hasNotifications?: boolean;
+  hasMessages?: boolean;
+};
+
+export default function Navigation({ isLoggedIn,
+  hasNotifications = false,
+  hasMessages = false,
+ }: Props)  {
   return (
     <nav className="flex px-20 h-16 items-center backdrop-blur fixed top-0 left-0 right-0 z-50 bg-background/50">
       <div>
@@ -157,6 +170,77 @@ export default function Navigation() {
           ))}
         </NavigationMenuList>
       </NavigationMenu>
+      {isLoggedIn ? (
+        <div className="ml-auto flex items-center gap-4">
+          <Button size="icon" variant="ghost" asChild className="relative">
+            <Link to="/my/notification">
+              <BellIcon />
+              {hasNotifications && (
+                <div className="absolute top-1.5 right-1.5 w-2 h-2 bg-red-500 rounded-full" />
+              )}
+            </Link>
+          </Button>
+          <Button size="icon" variant="ghost" asChild className="relative">
+            <Link to="/my/message">
+              <MessageCircleIcon />
+              {hasMessages && (
+                <div className="absolute top-1.5 right-1.5 w-2 h-2 bg-red-500 rounded-full" />
+              )}
+            </Link>
+          </Button>
+          <DropdownMenu>
+          <DropdownMenuTrigger asChild>
+            <Avatar>
+              <AvatarFallback>N</AvatarFallback>
+              <AvatarImage src="https://github.com/hmu332233.png" />
+            </Avatar>
+          </DropdownMenuTrigger>
+          <DropdownMenuContent>
+            <DropdownMenuLabel className="flex flex-col">              
+              <span className="font-medium">Minung</span>
+              <span className="text-sm text-muted-foreground">@username</span>
+            </DropdownMenuLabel>
+            <DropdownMenuSeparator />
+            <DropdownMenuGroup>
+              <DropdownMenuItem asChild>
+                <Link to="/my/dashboard" className="cursor-pointer">
+                  <BarChart3Icon className="size-4" />
+                  Dashboard
+                </Link>
+              </DropdownMenuItem>
+              <DropdownMenuItem asChild>
+              <Link to="/my/profile" className="cursor-pointer">
+                <UserIcon className="size-4" />
+                Profile
+              </Link>
+             </DropdownMenuItem>
+              <DropdownMenuItem asChild>
+                <Link to="/my/setting" className="cursor-pointer">
+                  <Settings className="size-4" />
+                  Settings
+                </Link>
+              </DropdownMenuItem> 
+            </DropdownMenuGroup> 
+            <DropdownMenuSeparator />
+            <DropdownMenuItem asChild>
+              <Link to="/auth/logout" className="cursor-pointer">
+                <LogOutIcon className="size-4" />
+                Logout
+              </Link>
+            </DropdownMenuItem>
+          </DropdownMenuContent>
+        </DropdownMenu>
+        </div>
+      ) : (
+        <div className="ml-auto flex items-center gap-4">
+          <Button variant="outline" asChild>
+            <Link to="/auth/login">Login</Link>
+          </Button>
+          <Button asChild>
+            <Link to="/auth/join">Join</Link>
+          </Button>
+        </div>
+      )}
     </nav>
   );
 }
