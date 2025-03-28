@@ -130,3 +130,24 @@ shadcn/ui는 "컴포넌트 라이브러리를 만드는 방법"을 제시하는 
 
 - components.json
   - cli 사용시 필요한 정보를 담고 있는 파일
+
+
+- cn
+  - classnames와 같이 조건부 className를 쉽게 작성할 수 있도록 도와주는 유틸리티
+
+- navagationMenuTriggerStyle
+  - NavigationMenuTrigger의 스타일을 정의하는 함수
+  - 이런식으로 컴포넌트를 직접 사용하지 않고도 컴포넌트의 스타일을 가져오는 함수를 제공함
+  ```jsx
+  <Link className={cn(navagationMenuTriggerStyle())} to={to}>
+    {children}
+  </Link>
+  ```
+- asChild
+  - 컴포넌트의 props를 자식 컴포넌트에 전달하는 기능
+  - 예를 들어, NavigationMenuTrigger는 기본적으로 button으로 렌더링되지만, asChild prop을 사용하면 Link로 렌더링할 수 있음
+  ```jsx
+  <Button asChild>
+    <Link to={to}>{children}</Link>
+  </Button>
+  ```
