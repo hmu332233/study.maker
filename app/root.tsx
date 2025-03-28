@@ -10,6 +10,7 @@ import {
 
 import type { Route } from "./+types/root";
 import "./app.css";
+import Navigation from "./common/components/navigation";
 
 // NOTE: 이름 고정
 export const links: Route.LinksFunction = () => [
@@ -53,7 +54,12 @@ export function Layout({ children }: { children: React.ReactNode }) {
 
 // NOTE: export default는 이름이 정해져있지 않아도 됨
 export default function App() {
-  return <Outlet />;
+  return (
+    <>
+      <Navigation />
+      <Outlet />
+    </>
+  );
 }
 
 
