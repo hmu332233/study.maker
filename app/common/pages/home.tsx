@@ -7,6 +7,7 @@ import { Avatar, AvatarFallback, AvatarImage } from "../components/ui/avatar";
 import { PostCard } from "../../features/community/components/postCard";
 import { IdeaCard } from "../../features/ideas/components/ideaCard";
 import { JobCard } from "../../features/jobs/components/jobCard";
+import { TeamCard } from "../../features/teams/components/teamCard";
 
 export const meta: MetaFunction = () => {
   return [
@@ -107,6 +108,29 @@ export default function HomePage() {
             positionLocation="Remote"
             salary="$120K - $150K"
             companyHq="San Francisco, CA"
+          />
+        ))}
+      </div>
+      <div className="grid grid-cols-4 gap-4">
+        <div>
+          <h2 className="text-5xl font-bold leading-tight tracking-tight">
+            Find a team mate
+          </h2>
+          <p className="text-xl font-light text-foreground">
+            Join a team looking for a new member.
+          </p>
+          <Button variant="link" asChild className="text-lg p-0">
+            <Link to="/teams">Explore all teams &rarr;</Link>
+          </Button>
+        </div>
+        {Array.from({ length: 6 }).map((_, index) => (
+          <TeamCard
+            key={index}
+            id={`team-${index}`}
+            leaderUsername={`user${index + 1}`}
+            leaderAvatarUrl={`https://github.com/user${index + 1}.png`}
+            positions={['Designer', 'Developer'].slice(0, (index % 2) + 1)}
+            projectDescription={`an amazing ${index % 2 === 0 ? 'SaaS' : 'Mobile App'} product`}
           />
         ))}
       </div>
