@@ -55,10 +55,10 @@ export function Layout({ children }: { children: React.ReactNode }) {
 // NOTE: export default는 이름이 정해져있지 않아도 됨
 export default function App() {
   return (
-    <>
+    <div className="py-28">
       <Navigation isLoggedIn={true} hasNotifications={true} hasMessages={true} />  
       <Outlet />
-    </>
+    </div>
   );
 }
 
