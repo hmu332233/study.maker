@@ -6,6 +6,7 @@ import { ProductCard } from "../../features/products/components/productCard";
 import { Avatar, AvatarFallback, AvatarImage } from "../components/ui/avatar";
 import { PostCard } from "../../features/community/components/postCard";
 import { IdeaCard } from "../../features/ideas/components/ideaCard";
+import { JobCard } from "../../features/jobs/components/jobCard";
 
 export const meta: MetaFunction = () => {
   return [
@@ -81,7 +82,34 @@ export default function HomePage() {
             claimed={index % 2 === 0}
           />
         ))}
-      </div>  
+      </div>
+      <div className="grid grid-cols-4 gap-4">
+        <div>
+          <h2 className="text-5xl font-bold leading-tight tracking-tight">
+            Latest Jobs
+          </h2>
+          <p className="text-xl font-light text-foreground">
+            Find your dream job.
+          </p>
+          <Button variant="link" asChild className="text-lg p-0">
+            <Link to="/jobs">Explore all jobs &rarr;</Link>
+          </Button>
+        </div>
+        {Array.from({ length: 9 }).map((_, index) => (
+          <JobCard
+            key={index}
+            id={`job-${index}`}
+            title={`Senior Software Engineer ${index + 1}`}
+            company={`Tech Company ${index + 1}`}
+            companyLogoUrl="https://github.com/microsoft.png"
+            postedAt="2 days ago"
+            type="Full-time"
+            positionLocation="Remote"
+            salary="$120K - $150K"
+            companyHq="San Francisco, CA"
+          />
+        ))}
+      </div>
     </div>
   );
 }
