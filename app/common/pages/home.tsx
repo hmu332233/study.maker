@@ -1,10 +1,11 @@
 import { Link, type MetaFunction } from "react-router";
-import { Card, CardDescription, CardFooter, CardHeader, CardTitle } from "../components/ui/card";
+import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "../components/ui/card";
 import { ChevronUpIcon, EyeIcon, MessageCircleIcon } from "lucide-react";
 import { Button } from "../components/ui/button";
 import { ProductCard } from "../../features/products/components/productCard";
 import { Avatar, AvatarFallback, AvatarImage } from "../components/ui/avatar";
 import { PostCard } from "../../features/community/components/postCard";
+import { IdeaCard } from "../../features/ideas/components/ideaCard";
 
 export const meta: MetaFunction = () => {
   return [
@@ -54,6 +55,30 @@ export default function HomePage() {
             authorFallback="JD"
             category="General"
             timeAgo="2 hours ago"
+          />
+        ))}
+      </div>  
+      <div className="grid grid-cols-3 gap-4">
+        <div>
+          <h2 className="text-5xl font-bold leading-tight tracking-tight">
+            IdeasGPT
+          </h2>
+          <p className="text-xl font-light text-foreground">
+            Find ideas for your next project.
+          </p>
+          <Button variant="link" asChild className="text-lg p-0">
+            <Link to="/ideas">Explore all ideas &rarr;</Link>
+          </Button>
+        </div>
+        {Array.from({ length: 5 }).map((_, index) => (
+          <IdeaCard
+            key={index}
+            id={`idea-${index}`}
+            title={`Amazing SaaS Idea ${index + 1}`}
+            viewsCount={120 + index * 10}
+            postedAt="3 days ago"
+            likesCount={45 + index}
+            claimed={index % 2 === 0}
           />
         ))}
       </div>  
