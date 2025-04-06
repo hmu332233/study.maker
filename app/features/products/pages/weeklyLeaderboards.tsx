@@ -1,5 +1,5 @@
 import { Link, type MetaFunction } from "react-router";
-import type { Route } from "../../../+types/products";
+import type { Route } from "./+types/weeklyLeaderboards";
 
 export function loader({ request, params }: Route.LoaderArgs) {
   const { year, month, week } = params;

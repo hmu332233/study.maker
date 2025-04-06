@@ -151,3 +151,24 @@ shadcn/ui는 "컴포넌트 라이브러리를 만드는 방법"을 제시하는 
     <Link to={to}>{children}</Link>
   </Button>
   ```
+
+
+## react-router
+
+- loader
+```jsx
+// NOTE: server side에서 실행됨 (react-router.config.tsx에 설정된 ssr: true에 따라)
+// 화면이 랜더링 되기 전에 데이터를 미리 로드할 수 있음
+// return은 loaderData로 전달됨
+export const loader = async () => {};
+```
+
+- 페이지 type safety
+  - react-router framework가 routes.ts를 읽고 각 route에 대해 +types 디렉토리가 생성되며, 여기에 해당 route의 type이 자동으로 정의됨
+    - 개발시에는 .react-router
+  - tsconfig의 rootDirs 옵션에 의해 다른 디렉토리에 있어도 같은 디렉토리에 있는 것처럼 상대경로로 접근이 가능하도록 되어있음 <= 이건 진짜 똑똑하네
+  - 사용 방법
+```jsx
+// 페이지 
+import type { Route } from "./+types/home";
+```

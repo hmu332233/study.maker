@@ -1,5 +1,5 @@
 import { Link, type MetaFunction } from "react-router";
-import type { Route } from "../../../+types/products";
+import type { Route } from "./+types/leaderboards";
 
 export function loader({ request }: Route.LoaderArgs) {
   return {

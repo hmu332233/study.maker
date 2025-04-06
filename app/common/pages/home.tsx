@@ -8,6 +8,7 @@ import { PostCard } from "../../features/community/components/postCard";
 import { IdeaCard } from "../../features/ideas/components/ideaCard";
 import { JobCard } from "../../features/jobs/components/jobCard";
 import { TeamCard } from "../../features/teams/components/teamCard";
+import type { Route } from "./+types/home";
 
 // NOTE: 페이지의 메타데이터를 정의하는 함수 (꼭 root에만 있어야 하는 것은 아님)
 export const meta: MetaFunction = () => {
@@ -27,7 +28,7 @@ export const loader = async () => {
 };
 
 
-export default function HomePage({ loaderData }) {
+export default function HomePage({ loaderData }: Route.ComponentProps) {
   return (
     <div className="px-20 space-y-40">
       <div className="grid grid-cols-3 gap-4">
