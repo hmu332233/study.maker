@@ -14,7 +14,7 @@ const menus = [{
     {
       name: "Leaderboard",
       description: "See the top players in the world",
-      to: "/products/leaderboard",
+      to: "/products/leaderboards",
     },
     {
       name: "Categories",
