@@ -9,6 +9,7 @@ import { IdeaCard } from "../../features/ideas/components/ideaCard";
 import { JobCard } from "../../features/jobs/components/jobCard";
 import { TeamCard } from "../../features/teams/components/teamCard";
 
+// NOTE: 페이지의 메타데이터를 정의하는 함수 (꼭 root에만 있어야 하는 것은 아님)
 export const meta: MetaFunction = () => {
   return [
     { title: "Home" },
@@ -16,7 +17,17 @@ export const meta: MetaFunction = () => {
   ]
 }
 
-export default function HomePage() {
+// NOTE: server side에서 실행됨 (react-router.config.tsx에 설정된 ssr: true에 따라)
+// 화면이 랜더링 되기 전에 데이터를 미리 로드할 수 있음
+// return은 loaderData로 전달됨
+export const loader = async () => {
+  return {
+    hello: "world",
+  };
+};
+
+
+export default function HomePage({ loaderData }) {
   return (
     <div className="px-20 space-y-40">
       <div className="grid grid-cols-3 gap-4">
