@@ -41,7 +41,9 @@ export function Layout({ children }: { children: React.ReactNode }) {
       <body>
         {/* NOTE: 기본적으로 export defualt 랜더링, 에러가 있으면 ErrorBoundary를 랜더링 */}
         {/* NOTE: 프레임워크 규칙 */}
-        {children}
+        <main className="px-20">
+          {children}
+        </main>
 
         {/* 스크롤 복구 컴포넌트, 페이지 뒤로 이동했을때 등 */}
         <ScrollRestoration />
