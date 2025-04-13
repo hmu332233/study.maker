@@ -11,6 +11,7 @@ import {
 import type { Route } from "./+types/root";
 import "./app.css";
 import Navigation from "./common/components/navigation";
+import { Settings } from "luxon";
 
 // NOTE: 이름 고정
 export const links: Route.LinksFunction = () => [
@@ -28,6 +29,9 @@ export const links: Route.LinksFunction = () => [
 
 // NOTE: 이름 고정
 export function Layout({ children }: { children: React.ReactNode }) {
+  Settings.defaultZone = "Asia/Seoul"; // NOTE: Luxon의 기본 시간대를 서울로 설정
+  Settings.defaultLocale = "ko-KR"; // NOTE: Luxon의 기본 로케일을 한국어로 설정
+  
   return (
     <html lang="ko" className="light">
       <head>

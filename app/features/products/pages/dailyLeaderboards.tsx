@@ -2,6 +2,10 @@ import { data, isRouteErrorResponse, Link, type MetaFunction } from "react-route
 import type { Route } from "./+types/dailyLeaderboards";
 import { DateTime } from "luxon";
 import { z } from "zod";
+import { Hero } from "~/common/components/hero";
+import { ProductCard } from "../components/productCard";
+import { Button } from "~/common/components/ui/button";
+import ProductPagination from "~/common/components/productPagination";
 
 const paramsSchema = z.object({
   // NOTE: z.coerce.number()를 사용하여 string을 number로 변환
@@ -39,7 +43,9 @@ export function loader({ request, params }: Route.LoaderArgs) {
   }
   
   return {
-    date,
+    year,
+    month,
+    day
   };
 }
 
@@ -55,11 +61,50 @@ export const meta: MetaFunction = () => {
 };
 
 export default function DailyLeaderboardsPage({ loaderData, actionData }: Route.ComponentProps) {
-  const { date } = loaderData;
+  const { year, month, day } = loaderData;
+  const urlDate = DateTime.fromObject(
+    { year, month, day },
+  );
+
+  const previousDate = urlDate.minus({ days: 1 });
+  const nextDate = urlDate.plus({ days: 1 });
+
+  const isToday = urlDate.hasSame(DateTime.now(), "day");
   
   return (
     <div>
-      <h1>Daily Product Leaderboards: {year}/{month}/{day}</h1>
+      <Hero title={`The Best Products of ${urlDate.toLocaleString(DateTime.DATE_MED)}`} />
+      <div>
+        <Button variant="secondary" asChild>
+          <Link to={`/products/leaderboards/daily/${previousDate.year}/${previousDate.month}/${previousDate.day}`}>
+            {previousDate.toLocaleString(DateTime.DATE_MED)}
+          </Link>
+        </Button>
+        {isToday || <Button variant="secondary" asChild>
+          <Link to={`/products/leaderboards/daily/${nextDate.year}/${nextDate.month}/${nextDate.day}`}>
+          {nextDate.toLocaleString(DateTime.DATE_MED)}
+          </Link>
+        </Button>}
+      </div>
+      <div className="flex flex-col w-full gap-5 max-w-screen-md mx-auto">
+      {Array.from({ length: 10 }).map((_, index) => (
+        <ProductCard
+          key={index}
+          id={`productId-${index}`}
+          title={`Product Title ${index + 1}`}
+          description="Product description goes here. It should be short and concise."
+          commentCount={2}
+          viewCount={5}
+          upvoteCount={120}
+        />
+      ))}
+      </div>
+      <ProductPagination 
+        total={100} 
+        currentPage={1} 
+        pageSize={10} 
+        onPageChange={(page) => console.log(page)} 
+      />
     </div>
   );
 }
