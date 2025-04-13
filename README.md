@@ -186,3 +186,14 @@ export const loader = async () => {
 // 페이지 
 import type { Route } from "./+types/home";
 ```
+
+## zod
+
+- z.coerce
+  - zod의 coerce는 타입을 강제로 변환하는 기능
+  - 예를 들어, string 타입을 number로 변환할 때 사용됨
+```jsx
+const schema = z.object({
+  id: z.coerce.number(),
+});
+```
