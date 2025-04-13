@@ -162,6 +162,20 @@ shadcn/ui는 "컴포넌트 라이브러리를 만드는 방법"을 제시하는 
 // return은 loaderData로 전달됨
 export const loader = async () => {};
 ```
+  - UI 컴포넌트를 위한 데이터를 불러오기
+  - redirect 등을 이용한 서버 측 작업
+```jsx
+export const loader = async () => {
+  return redirect("/login");
+}
+```
+  - response를 보내서 json을 반환하는 등의 작업
+```jsx
+export const loader = async () => {
+  return Response.json({ message: "Hello World" });
+}
+```
+
 
 - 페이지 type safety
   - react-router framework가 routes.ts를 읽고 각 route에 대해 +types 디렉토리가 생성되며, 여기에 해당 route의 type이 자동으로 정의됨

@@ -1,29 +1,8 @@
-import { Link, type MetaFunction } from "react-router";
+import { Link, redirect type MetaFunction } from "react-router";
 import type { Route } from "./+types/index";
 
-export function loader({ request }: Route.LoaderArgs) {
-  return {
-    products: []
-  };
-}
-
-export function action({ request }: Route.ActionArgs) {
-  return {};
-}
-
-export const meta: MetaFunction = () => {
-  return [
-    { title: "Products" },
-    { name: "description", content: "Discover amazing products made by our community" }
-  ];
-};
-
-export default function ProductsIndexPage({ loaderData, actionData }: Route.ComponentProps) {
-  const { products } = loaderData;
-  
-  return (
-    <div>
-      <h1>Products</h1>
-    </div>
-  );
+// NOTE: UI가 없어도 loader를 실행할 수 있음
+// redirect 등 서버에서 처리하는 로직을 작성할 수 있음
+export function loader() {
+  return redirect("/products/leaderboards");
 }
