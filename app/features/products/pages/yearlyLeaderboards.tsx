@@ -1,5 +1,5 @@
 import { isRouteErrorResponse, Link, type MetaFunction } from "react-router";
-import type { Route } from "./+types/weeklyLeaderboards";
+import type { Route } from "./+types/yearlyLeaderboards";
 import { DateTime } from "luxon";
 import { z } from "zod";
 import { Hero } from "~/common/components/hero";
@@ -9,7 +9,6 @@ import ProductPagination from "~/common/components/productPagination";
 
 const paramsSchema = z.object({
   year: z.coerce.number(),
-  week: z.coerce.number(),
 });
 
 export function loader({ request, params }: Route.LoaderArgs) {
@@ -17,16 +16,16 @@ export function loader({ request, params }: Route.LoaderArgs) {
   if (!success) {
     throw { error_code: 'invalid_params', message: 'Invalid parameters', status: 400 };
   }
-  const { year, week } = parsedData;
+  const { year } = parsedData;
 
-  const date = DateTime.fromObject({ weekYear: year, weekNumber: week, weekday: 1 }, { zone: "Asia/Seoul" });
+  const date = DateTime.fromObject({ year, month: 1, day: 1 }, { zone: "Asia/Seoul" });
 
   if (!date.isValid) {
     throw { error_code: 'invalid_date', message: 'Invalid date', status: 400 };
   }
 
   const now = DateTime.now().setZone("Asia/Seoul");
-  if (date > now.endOf("week")) {
+  if (date > now.endOf("year")) {
     throw {
       error_code: "future_date",
       message: "Future date",
@@ -35,8 +34,7 @@ export function loader({ request, params }: Route.LoaderArgs) {
   }
 
   return {
-    year,
-    week
+    year
   };
 }
 
@@ -45,33 +43,35 @@ export function action({ request }: Route.ActionArgs) {
 }
 
 export const meta: MetaFunction = () => [
-  { title: "Weekly Product Leaderboards" },
-  { name: "description", content: "Top products for the week" }
+  { title: "Yearly Product Leaderboards" },
+  { name: "description", content: "Top products for the year" }
 ];
 
-export default function WeeklyLeaderboardsPage({ loaderData, actionData }: Route.ComponentProps) {
-  const { year, week } = loaderData;
-  const urlDate = DateTime.fromObject({ weekYear: year, weekNumber: week, weekday: 1 });
+export default function YearlyLeaderboardsPage({ loaderData, actionData }: Route.ComponentProps) {
+  const { year } = loaderData;
+  const urlDate = DateTime.fromObject({ year });
 
-  const previousDate = urlDate.minus({ weeks: 1 });
-  const nextDate = urlDate.plus({ weeks: 1 });
-
-  const isCurrentWeek = urlDate.hasSame(DateTime.now(), "week");
+  const previousYear = urlDate.minus({ years: 1 });
+  const nextYear = urlDate.plus({ years: 1 });
+  const now = DateTime.now();
+  const isCurrentYear = urlDate.hasSame(now, "year");
 
   return (
     <div>
-      <Hero title={`The Best Products of Week ${week}, ${year}`} />
-      <div>
+      <Hero title={`The Best Products of ${year}`} />
+      <div className="flex gap-2 my-4">
         <Button variant="secondary" asChild>
-          <Link to={`/products/leaderboards/weekly/${previousDate.weekYear}/${previousDate.weekNumber}`}>
-            {`Week ${previousDate.weekNumber}, ${previousDate.weekYear}`}
+          <Link to={`/products/leaderboards/yearly/${previousYear.year}`}>
+            {previousYear.year}
           </Link>
         </Button>
-        {isCurrentWeek || <Button variant="secondary" asChild>
-          <Link to={`/products/leaderboards/weekly/${nextDate.weekYear}/${nextDate.weekNumber}`}>
-            {`Week ${nextDate.weekNumber}, ${nextDate.weekYear}`}
-          </Link>
-        </Button>}
+        {!isCurrentYear && (
+          <Button variant="secondary" asChild>
+            <Link to={`/products/leaderboards/yearly/${nextYear.year}`}>
+              {nextYear.year}
+            </Link>
+          </Button>
+        )}
       </div>
       <div className="flex flex-col w-full gap-5 max-w-screen-md mx-auto">
         {Array.from({ length: 10 }).map((_, index) => (
@@ -86,9 +86,9 @@ export default function WeeklyLeaderboardsPage({ loaderData, actionData }: Route
           />
         ))}
       </div>
-      <ProductPagination
+      <ProductPagination 
         totalPage={5}
-        onPageChange={page => console.log(page)}
+        onPageChange={(page) => console.log(page)} 
       />
     </div>
   );
@@ -112,7 +112,7 @@ export function ErrorBoundary({ error }: Route.ErrorBoundaryProps) {
   return (
     <div>
       <h2>Error</h2>
-      <p>Something went wrong while loading the weekly leaderboards.</p>
+      <p>Something went wrong while loading the yearly leaderboards.</p>
     </div>
   );
 }
