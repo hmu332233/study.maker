@@ -100,9 +100,7 @@ export default function DailyLeaderboardsPage({ loaderData, actionData }: Route.
       ))}
       </div>
       <ProductPagination 
-        total={100} 
-        currentPage={1} 
-        pageSize={10} 
+        totalPage={5}
         onPageChange={(page) => console.log(page)} 
       />
     </div>
