@@ -34,6 +34,7 @@ Key Conventions
 
 - Don't import anything from Radix UI. Always import UI components from Shadcn UI.
 - Don't import anything from Remix. Any @remix-run import should be imported from "react-router".
+- Use ~/common/components path when importing components.
 - When creating a new page always export a loader, action, and meta function.
 - Route types should be imported like this: `import type { Route } from "./+types/...";`
 - `useLoaderData` does not exist anymore. Instead, components receive Router.ComponentProps type param that contains loaderData.
