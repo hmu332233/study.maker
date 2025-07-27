@@ -221,3 +221,11 @@ const schema = z.object({
 "db:migrate": "drizzle-kit migrate", // 생성된 마이그레이션 파일을 데이터베이스에 적용
 "db:studio": "drizzle-kit studio" // 데이터베이스 스튜디오를 실행하여 데이터베이스를 시각적으로 관리 - supabase 쓸 예정이라 경우에는 안 쓸 예정
 ```
+
+
+## 메모
+- 배열 내에 최소 하나의 값이 있다는 것을 ts에 알려주는 방법
+```
+as [string, ...string[]]
+// string[] 타입인데 안에 최소 하나의 string이 있음
+```
