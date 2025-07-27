@@ -197,3 +197,27 @@ const schema = z.object({
   id: z.coerce.number(),
 });
 ```
+
+## supabase
+- supabase: postgresql을 기반으로 하는 firebase 대안이라고 주장하는 오픈소스
+- 데이터베이스, 인증, 스토리지 등을 제공
+- 무료 사용량이 괜찮아보여서 앞으로 자주 사용해도 좋을듯
+
+## drizzle
+- drizzle은 TypeScript와 함께 사용할 수 있는 ORM 라이브러리
+- TypeScript의 타입 시스템을 활용하여 데이터베이스 쿼리를 작성할 수 있도록 도와줌
+- SQL 쿼리를 작성하는 대신 TypeScript 코드로 데이터베이스 작업을 수행할 수 있음
+- 관련 문서
+  - https://orm.drizzle.team/docs/connect-supabase
+
+## drizzle-kit
+- drizzle-kit은 drizzle ORM을 위한 마이그레이션 도구
+- 데이터베이스 스키마를 TypeScript 코드로 정의하고, 이를 기반으로 마이그레이션 파일을 생성할 수 있음
+- 스키마가 변경될때 이를 자동으로 감지하고, 필요한 마이그레이션 파일을 생성함
+- 생성된 마이그레이션 파일 (SQL)은 drizzle-kit이 바로 데이터베이스에 적용해줌
+
+```
+"db:generate": "drizzle-kit generate", // 스키마 파일을 살펴보고 변경사항이 있을 경우 마이그레이션 파일 생성
+"db:migrate": "drizzle-kit migrate", // 생성된 마이그레이션 파일을 데이터베이스에 적용
+"db:studio": "drizzle-kit studio" // 데이터베이스 스튜디오를 실행하여 데이터베이스를 시각적으로 관리 - supabase 쓸 예정이라 경우에는 안 쓸 예정
+```
