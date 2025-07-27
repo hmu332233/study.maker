@@ -47,10 +47,20 @@ export function action({ request }: Route.ActionArgs) {
   return {};
 }
 
-export const meta: MetaFunction = () => [
-  { title: "Monthly Product Leaderboards" },
-  { name: "description", content: "Top products for the month" }
-];
+export const meta: MetaFunction = ({ params }) => {
+  const date = DateTime.fromObject(
+    {
+      year: Number(params.year),
+      month: Number(params.month),
+      day: 1
+    },
+    { zone: "Asia/Seoul" }
+  );
+  return [
+    { title: `Monthly Leaderboards - ${date.toLocaleString(DateTime.DATE_MED)}` },
+    { name: "description", content: "Top products for the month" }
+  ];
+};
 
 export default function MonthlyLeaderboardsPage({ loaderData, actionData }: Route.ComponentProps) {
   const { year, month } = loaderData;

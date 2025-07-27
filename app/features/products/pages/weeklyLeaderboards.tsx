@@ -44,10 +44,20 @@ export function action({ request }: Route.ActionArgs) {
   return {};
 }
 
-export const meta: MetaFunction = () => [
-  { title: "Weekly Product Leaderboards" },
-  { name: "description", content: "Top products for the week" }
-];
+export const meta: MetaFunction = ({ params }) => {
+  const date = DateTime.fromObject(
+    {
+      weekYear: Number(params.year),
+      weekNumber: Number(params.week),
+      weekday: 1
+    },
+    { zone: "Asia/Seoul" }
+  );
+  return [
+    { title: `Weekly Leaderboards - ${date.toLocaleString(DateTime.DATE_MED)}` },
+    { name: "description", content: "Top products for the week" }
+  ];
+};
 
 export default function WeeklyLeaderboardsPage({ loaderData, actionData }: Route.ComponentProps) {
   const { year, week } = loaderData;

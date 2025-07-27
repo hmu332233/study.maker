@@ -53,9 +53,19 @@ export function action({ request }: Route.ActionArgs) {
   return {};
 }
 
-export const meta: MetaFunction = () => {
+// params: url에서 추출된 파라미터
+// data: loader에서 반환된 데이터
+export const meta: MetaFunction = ({ params, data }) => {
+  const date = DateTime.fromObject(
+    { 
+      year: Number(params.year), 
+      month: Number(params.month), 
+      day: Number(params.day) 
+    },
+    { zone: "Asia/Seoul" }
+  );
   return [
-    { title: "Daily Product Leaderboards" },
+    { title: `Daily Leaderboards - ${date.toLocaleString(DateTime.DATE_MED)}` },
     { name: "description", content: "Top products for the day" }
   ];
 };

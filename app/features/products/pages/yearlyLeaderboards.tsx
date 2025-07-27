@@ -42,10 +42,18 @@ export function action({ request }: Route.ActionArgs) {
   return {};
 }
 
-export const meta: MetaFunction = () => [
-  { title: "Yearly Product Leaderboards" },
-  { name: "description", content: "Top products for the year" }
-];
+export const meta: MetaFunction = ({ params }) => {
+  const date = DateTime.fromObject(
+    {
+      year: Number(params.year),
+    },
+    { zone: "Asia/Seoul" }
+  );
+  return [
+    { title: `Yearly Leaderboards - ${date.toLocaleString(DateTime.DATE_MED)}` },
+    { name: "description", content: "Top products for the year" }
+  ];
+};
 
 export default function YearlyLeaderboardsPage({ loaderData, actionData }: Route.ComponentProps) {
   const { year } = loaderData;
